@@ -2,9 +2,8 @@
 
 namespace DieSchittigs\StarScraper;
 
-class GooglePlaceProvider implements iRatingProvider{
+class GooglePlaceProvider extends RatingProvider{
     private $reviews;
-    private $BEST_RATING = 5;
 
     public function __construct($GoogleApiKey, $GoogleMapsPlaceID){
         $placeReviews = [];
@@ -20,16 +19,14 @@ class GooglePlaceProvider implements iRatingProvider{
             $this->reviews = $placeReviews;
         }
     }
-    public function getRating(){
+    public function getRating($method = 'median'){
         if(!$this->reviews) return null;
-        $rating = new Rating();
-        $rating->bestRating = $this->BEST_RATING;
-        $rating->ratingCount = count($this->reviews);
-        $score = 0;
+        $rating = new Rating($this->bestRating);
+        $scores = [];
         foreach($this->reviews as $review){
-            $score += $review->rating;
+            $scores[] = $review->rating;
         }
-        $rating->ratingValue = $score / $rating->ratingCount;
+        $rating->avgRatingValue($scores, $method, true);
         return $rating;
     }
 }

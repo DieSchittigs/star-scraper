@@ -4,8 +4,7 @@ namespace DieSchittigs\StarScraper;
 
 use Facebook\Facebook;
 
-class FacebookPageProvider implements iRatingProvider{
-    private $BEST_RATING = 5;
+class FacebookPageProvider extends RatingProvider{
     private $result;
 
     public function __construct($appID, $appSecret, $pageId){
@@ -24,17 +23,18 @@ class FacebookPageProvider implements iRatingProvider{
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
         }
     }
-    public function getRating(){
+    public function getRating($method = 'median'){
         if(
             !$this->result ||
             !$this->result['id'] ||
             !$this->result['rating_count'] ||
             !$this->result['overall_star_rating']
         ) return null;
-        $rating = new Rating();
-        $rating->bestRating = $this->BEST_RATING;
-        $rating->ratingCount = $this->result['rating_count'];
-        $rating->ratingValue = $this->result['overall_star_rating'];
+        $rating = new Rating(
+            $this->bestRating,
+            $this->result['rating_count'],
+            $this->result['overall_star_rating']
+        );
         return $rating;
     }
 }

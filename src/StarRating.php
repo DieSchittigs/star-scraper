@@ -2,30 +2,26 @@
 
 namespace DieSchittigs\StarScraper;
 
-class StarRating implements iRatingProvider{
+class StarRating extends RatingProvider{
     private $providers = [];
-    private $best_rating;
-    public function __construct($best_rating = 5){
-        $this->best_rating = $best_rating;
+    public function __construct($bestRating = null){
+        if($bestRating) $this->bestRating = $bestRating;
     }
-    public function addProvider(iRatingProvider $provider){
+    public function addProvider(RatingProvider $provider){
         $this->providers[] = $provider;
     }
-    public function getRating(){
+    public function getRating($method = 'median'){
         if(!$this->providers) return null;
-        $rating = new Rating;
-        $rating->bestRating = $this->best_rating;
+        $rating = new Rating($this->bestRating);
         $rating->ratingCount = 0;
-        $score = 0;
-        $validProviders = 0;
+        $scores = [];
         foreach($this->providers as $provider){
             $_rating = $provider->getRating();
-            if(!$_rating) continue;
+            if(!$_rating || !$_rating->isValid()) continue;
             $rating->ratingCount += $_rating->ratingCount;
-            $score += $_rating->ratingValue / $_rating->bestRating * $rating->bestRating;
-            $validProviders ++;
+            $scores[] = $_rating->ratingValue / $_rating->bestRating * $rating->bestRating;
         }
-        $rating->ratingValue = $score / $validProviders;
+        $rating->avgRatingValue($scores, $method);
         return $rating;
     }
 }
