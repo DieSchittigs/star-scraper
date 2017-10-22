@@ -1,4 +1,18 @@
 {
+    "name": "dieschittigs/star-scraper",
+    "type": "library",
+    "description": "Aggregates star-ratings from various sources",
+    "keywords": ["rating","review"],
+    "homepage": "https://github.com/DieSchittigs/star-scraper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Dühr",
+            "email": "tobias@dieschittigs.de",
+            "homepage": "http://dieschittigs.de",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "facebook/graph-sdk": "^5.6",
         "markrogoyski/math-php": "0.*"
