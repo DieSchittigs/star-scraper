@@ -4,7 +4,7 @@ A PHP library by [Die Schittigs](https://www.dieschittigs.de).
 
 ## What's this?
 
-Star Scraper is built to aggregate ratings from different websites (e.g. Google Places, Facebook) into one average rating intended to be visibe on your website. This is especially useful for local businesses, that have reviews on Facebook *and* other platforms and want these ratings to be displayed on their homepage in a unified way. It may also be used to display those little stars besides Google search results.
+Star Scraper is built to aggregate ratings from different websites (e.g. Google Places, Facebook) into one average rating intended to be visibe on your website. This is especially useful for (local) businesses, that have reviews on Facebook *and* other platforms and want these ratings to be displayed on their homepage in an unified way. It may also be used to display those little stars besides Google search results.
 
 ## Installation
 
@@ -27,7 +27,7 @@ Now you may add RatingProviders (that's where your ratings are coming from). For
 
 ### Google My Business / Google Maps Places
 
-    You'll need an [Google API-key](https://console.developers.google.com) (activate *Google Places API Web Service*) and your [PlaceID](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder) (your business on Google Maps).
+You'll need an [Google API-key](https://console.developers.google.com) (activate *Google Places API Web Service*) and your [PlaceID](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder) (your business on Google Maps).
 
     $starRating->addProvider(
         new GooglePlaceProvider(
@@ -38,7 +38,7 @@ Now you may add RatingProviders (that's where your ratings are coming from). For
 
 ### Facebook Pages
 
-    You'll need an [Facebook App ID and App Secret](https://developers.facebook.com) and your [PageID](https://findmyfbid.com/).
+You'll need an [Facebook App ID and App Secret](https://developers.facebook.com) and your [PageID](https://findmyfbid.com/).
 
     $starRating->addProvider(
         new FacebookPageProvider(
@@ -66,7 +66,7 @@ To get the *median* ratings from all of your providers, simply call
 
     $rating = $starRating->getRating();
 
-This will give you the median - if you prefer the less accurate mean average, call
+This will give you the median - if you prefer the less accurate *mean* average, call
 
     $rating = $starRating->getRating('mean');
 
