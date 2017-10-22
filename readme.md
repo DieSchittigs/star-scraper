@@ -25,6 +25,14 @@ First, do some imports and initialize StarRating
 
 Now you may add RatingProviders (that's where your ratings are coming from). For now we only have support for Google Places (also called Google My Business) and Facebook Pages.
 
+### Custom best rating value
+
+Don't want 5 stars, but 100% as your best rating? No problem.
+
+    $starRating = new StarRating(100);
+
+Star Scraper will normalize all individual results from your providers, so that the end-result is independent from their best rating value;
+
 ### Google My Business / Google Maps Places
 
 You'll need an [Google API-key](https://console.developers.google.com) (activate *Google Places API Web Service*) and your [PlaceID](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder) (your business on Google Maps).
