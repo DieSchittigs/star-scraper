@@ -2,7 +2,7 @@
 
 namespace DieSchittigs\StarScraper;
 
-use MathPHP\Statistics\Average;
+use Median\Median;
 
 class Rating{
     public $bestRating;
@@ -22,12 +22,13 @@ class Rating{
     }
     public function avgRatingValue(Array $scores, $method = 'median', $doSetRatingCount = false){
         if($doSetRatingCount) $this->ratingCount = count($scores);
+        $avg = new Median($scores);
         switch($method){
             case 'mean':
-                $this->ratingValue = Average::mean($scores);
+                $this->ratingValue =  $avg->average();
                 return true;
             case 'median':
-                $this->ratingValue = Average::median($scores);
+                $this->ratingValue = $avg->median();
                 return true;
         }
         return false;

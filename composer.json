@@ -15,7 +15,7 @@
     ],
     "require": {
         "facebook/graph-sdk": "^5.6",
-        "markrogoyski/math-php": "0.*"
+        "mazedlx/median": "^1.2"
     },
     "autoload": {
         "psr-4": {
