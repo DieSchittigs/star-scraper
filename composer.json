@@ -15,7 +15,8 @@
     ],
     "require": {
         "facebook/graph-sdk": "^5.6",
-        "mazedlx/median": "^1.2"
+        "mazedlx/median": "^1.2",
+        "kriswallsmith/buzz": "^0.15.1"
     },
     "autoload": {
         "psr-4": {

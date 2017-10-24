@@ -3,14 +3,16 @@
 namespace DieSchittigs\StarScraper;
 
 class GooglePlaceProvider extends RatingProvider{
+
+    use BrowserTrait;
+
     private $reviews;
 
     public function __construct($GoogleApiKey, $GoogleMapsPlaceID){
         $placeReviews = [];
         try{
-            $placeDetails = json_decode(
-                file_get_contents("https://maps.googleapis.com/maps/api/place/details/json?placeid=$GoogleMapsPlaceID&key=$GoogleApiKey")
-            );
+            $response = $this->getBrowser()->get("https://maps.googleapis.com/maps/api/place/details/json?placeid=$GoogleMapsPlaceID&key=$GoogleApiKey");
+            $placeDetails = json_decode($response->getContent());
             $placeReviews = $placeDetails->result->reviews;
         } catch (\Exception $e){
             echo 'Google API returned an error: ' . $e->getMessage();
@@ -30,4 +32,3 @@ class GooglePlaceProvider extends RatingProvider{
         return $rating;
     }
 }
-

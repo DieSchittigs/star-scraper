@@ -16,4 +16,3 @@ class FakeRatingsProvider extends RatingProvider{
         return $rating;
     }
 }
-

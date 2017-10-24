@@ -38,4 +38,3 @@ class FacebookPageProvider extends RatingProvider{
         return $rating;
     }
 }
-

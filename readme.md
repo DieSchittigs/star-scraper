@@ -16,6 +16,8 @@ Install via [Composer](https://getcomposer.org).
 
 First, do some imports and initialize StarRating
 
+    <?php
+
     use DieSchittigs\StarScraper\StarRating;
     use DieSchittigs\StarScraper\GooglePlaceProvider;
     use DieSchittigs\StarScraper\FacebookPageProvider;
@@ -29,6 +31,8 @@ Now you may add RatingProviders (that's where your ratings are coming from). For
 
 Don't want 5 stars, but 100% as your best rating? No problem.
 
+    <?php
+
     $starRating = new StarRating(100);
 
 Star Scraper will normalize all individual results from your providers, so that the end-result is independent from their best rating value;
@@ -36,6 +40,8 @@ Star Scraper will normalize all individual results from your providers, so that 
 ### Google My Business / Google Maps Places
 
 You'll need an [Google API-key](https://console.developers.google.com) (activate *Google Places API Web Service*) and your [PlaceID](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder) (your business on Google Maps).
+
+    <?php
 
     $starRating->addProvider(
         new GooglePlaceProvider(
@@ -47,6 +53,8 @@ You'll need an [Google API-key](https://console.developers.google.com) (activate
 ### Facebook Pages
 
 You'll need an [Facebook App ID and App Secret](https://developers.facebook.com) and your [PageID](https://findmyfbid.com/).
+
+    <?php
 
     $starRating->addProvider(
         new FacebookPageProvider(
@@ -60,6 +68,8 @@ You'll need an [Facebook App ID and App Secret](https://developers.facebook.com)
 
 If you just want to try things out, use some fake ratings.
 
+    <?php
+
     $starRating->addProvider(
         new FakeRatingsProvider([5,4,3,5,4])
     );
@@ -72,13 +82,19 @@ If you just want to try things out, use some fake ratings.
 
 To get the *median* ratings from all of your providers, simply call
 
+    <?php
+
     $rating = $starRating->getRating();
 
 This will give you the median - if you prefer the less accurate *mean* average, call
 
+    <?php
+
     $rating = $starRating->getRating('mean');
 
 The result will look like this
+
+    <?php
 
     DieSchittigs\StarScraper\Rating Object
     (
@@ -90,6 +106,8 @@ The result will look like this
 ## Extend
 
 If you want to add you own RatingProviders, it's pretty straighforward.
+
+    <?php
 
     use DieSchittigs\StarScraper\RatingProvider;
     use DieSchittigs\StarScraper\Rating;
@@ -113,6 +131,28 @@ If you want to add you own RatingProviders, it's pretty straighforward.
             return $rating;
         }
     }
+
+### Calling an external API in your Provider
+
+When making API calls, consider using `BrowserTrait`.
+
+    <?php
+
+    use DieSchittigs\StarScraper\RatingProvider;
+    use DieSchittigs\StarScraper\Rating;
+    use DieSchittigs\StarScraper\BrowserTrait;
+
+    class CustomRatingsProvider extends RatingProvider{
+        use BrowserTrait;
+        public function __construct($apiKey){
+            $result = $this->getBrowser()->get("http://api.example.org?key=$apiKey");
+            $data = $result->getContent();
+        }
+        ...
+    }
+
+`$this->getBrowser()` will give you an instance of [Buzz/Browser](https://github.com/kriswallsmith/Buzz).
+The browser instance is shared with other Providers for performance reasons.
 
 ## Contribute
 
