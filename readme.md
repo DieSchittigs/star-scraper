@@ -52,7 +52,7 @@ You'll need an [Google API-key](https://console.developers.google.com) (activate
 
 ### Facebook Pages
 
-You'll need an [Facebook App ID and App Secret](https://developers.facebook.com) and your [PageID](https://findmyfbid.com/).
+You'll need an [Facebook App ID and App Secret](https://developers.facebook.com) and your [PageID](https://findmyfbid.in/).
 
     <?php
 
